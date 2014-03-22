@@ -8,7 +8,7 @@ class CreateLocations < ActiveRecord::Migration
       t.string :state
       t.float :latitude
       t.float :longitude
-      t.string :hours
+      t.text :hours
       t.string :phone
       t.string :zip
       t.string :url

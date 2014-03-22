@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20140322135313) do
     t.string   "state"
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "hours"
+    t.text     "hours"
     t.string   "phone"
     t.string   "zip"
     t.string   "url"
@@ -34,3 +34,13 @@ ActiveRecord::Schema.define(version: 20140322135313) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "spatial_ref_sys", id: false, force: true do |t|
+    t.integer "srid",                   null: false
+    t.string  "auth_name", limit: 256
+    t.integer "auth_srid"
+    t.string  "srtext",    limit: 2048
+    t.string  "proj4text", limit: 2048
+  end
+
+end
