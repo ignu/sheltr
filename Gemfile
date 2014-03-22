@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.0.0'
 
-gem 'foundation-rails'
+gem 'foundation-rails', github: "ignu/foundation-rails"
 gem 'angularjs-rails'
 
 # Use Uglifier as compressor for JavaScript assets

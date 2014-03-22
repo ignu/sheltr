@@ -8,14 +8,10 @@
 
     <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css">
-
     <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-    <%= csrf_meta_tags %>
   </head>
-
   <body ng-app="Sheltr">
+    <%= javascript_include_tag "application" %>
     <%= yield %>
   </body>
-
-  <%= javascript_include_tag "application" %>
 </html>

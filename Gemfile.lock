@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/ignu/foundation-rails.git
+  revision: 8e854e7a509efc9fb2998e6f0af02529d2237042
+  specs:
+    foundation-rails (5.0.2.0)
+      railties (>= 3.1.0)
+      sass (>= 3.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -48,9 +56,6 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.0.2)
-    foundation-rails (5.0.2.0)
-      railties (>= 3.1.0)
-      sass (>= 3.2.0)
     geocoder (1.1.6)
     hike (1.2.3)
     i18n (0.6.9)
@@ -144,7 +149,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   coffee-rails (~> 4.0.0)
-  foundation-rails
+  foundation-rails!
   geocoder
   jbuilder (~> 1.2)
   jquery-rails
