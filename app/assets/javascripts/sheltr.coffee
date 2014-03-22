@@ -20,7 +20,6 @@ app.controller "LocationsController", ['$scope', 'Locations', (($scope, Location
         scrollWheelZoom: false
       markers: markers
 
-
   $scope.locations = locations
 
   angular.extend $scope,
@@ -32,4 +31,3 @@ app.controller "LocationsController", ['$scope', 'Locations', (($scope, Location
     defaults:
       scrollWheelZoom: false
 )]
-
