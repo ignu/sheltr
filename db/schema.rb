@@ -13,14 +13,18 @@
 
 ActiveRecord::Schema.define(version: 20140322135313) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "postgis"
+
   create_table "locations", force: true do |t|
     t.string   "name"
     t.string   "address1"
     t.string   "address2"
     t.string   "city"
     t.string   "state"
-    t.float    "lat"
-    t.float    "long"
+    t.float    "latitude"
+    t.float    "longitude"
     t.string   "hours"
     t.string   "phone"
     t.string   "zip"
@@ -30,5 +34,3 @@ ActiveRecord::Schema.define(version: 20140322135313) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-end

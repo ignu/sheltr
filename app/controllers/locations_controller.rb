@@ -2,7 +2,8 @@ class LocationsController < ApplicationController
   before_action :set_location, only: [:show, :edit, :update, :destroy]
 
   def index
-    @locations = Location.all
+    locations = Location.near([params[:latitude], params[:longitude]], 30)
+    render json: Location.all
   end
 
   def show

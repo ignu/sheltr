@@ -10,4 +10,17 @@
  *
  *= require_self
  *= require_tree .
+ *= require foundation_and_overrides
  */
+
+.locations {
+  margin-top: 25px;
+}
+
+.locations .hours {
+  margin-top: 10px;
+}
+
+.locations .phone {
+  margin-top: 10px;
+}
