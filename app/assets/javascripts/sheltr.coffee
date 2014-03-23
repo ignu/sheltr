@@ -1,33 +1,81 @@
-app = angular.module("Sheltr", ['ngResource', 'leaflet-directive'])
+class Location extends Backbone.Model
+class Locations extends Backbone.Collection
 
-app.factory('Locations', ['$resource', ($resource) ->
-  $resource '/locations.json', null, 'index': { method:'GET' }
-])
+class LocationView extends Backbone.Marionette.ItemView
+  templateHelpers: =>
+  template: _.template """
+      <div class="header row">
+        <div class="name large-9 columns">
+          <h3><a href="<%= url %>"><%= name %></a></h3>
 
-app.controller "LocationsController", ['$scope', 'Locations', (($scope, Locations) ->
-  locations = Locations.query ->
-    markers = _.map locations, (location) ->
-        lat: location.latitude
-        lng: location.longitude
-        message: "#{location.name}<br/> (#{location.phone})<br/>#{location.address1}"
+          <span> <%= address1 %> <%= address2 %></span>
+          <div> <%= city %>, <%= state %></div>
 
-    angular.extend $scope,
-      center:
-        lat: locations[5].latitude
-        lng: locations[5].longitude
-        zoom: 13
-      defaults:
-        scrollWheelZoom: false
-      markers: markers
+          <div class="phone">
+            <h5> <%= phone %> </h5>
+          </div>
+        </div>
+      </div>
 
-  $scope.locations = locations
+      <div class="details row">
+        <div class="large-11 columns">
+          <%= description %>
 
-  angular.extend $scope,
-    center:
-      lat: 39.28026
-      lng: -76.65054
-      zoom: 11
-    markers: {}
-    defaults:
-      scrollWheelZoom: false
-)]
+          <div class="hours">
+            <strong>Hours</strong>: <%= hours %>
+          </div>
+        </div>
+      </div>
+  """
+
+  className: "panel service row"
+
+
+class MapView
+  constructor: (collection, coords) ->
+    first = collection.first()
+
+    map = L.map 'map',
+      center: [coords.latitude, coords.longitude]
+      zoom: 13
+
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: 'Open Street ', maxZoom: 18 }).addTo(map)
+
+    collection.each (model) ->
+
+      marker = L.marker([model.get("latitude"), model.get("longitude")]).addTo(map)
+          .bindPopup(model.get("name") + "<br/> #{model.get("phone") || ''}")
+
+      model.on "focused", ->
+        map.setView([model.get("latitude"), model.get("longitude")], 15)
+        marker.openPopup()
+
+    collection.first().trigger("focused")
+    console.log "collection.last", collection.first()
+    window.model = collection.first()
+
+class LocationCollectionView extends Backbone.Marionette.CollectionView
+  className: "locations"
+  itemView: LocationView
+
+class LocationsController extends Backbone.Marionette.Controller
+  initialize: (coords) ->
+    locations = new Locations
+
+    params = "latitude=#{coords.latitude}&longitude=#{coords.longitude}"
+
+    locations.url = "/locations.json?#{params}"
+
+    locations.fetch().success ->
+      NProgress.done()
+      new MapView(locations, coords)
+      view = new LocationCollectionView(collection: locations)
+      $("#locations").append(view.render().$el)
+
+$ ->
+  NProgress.start()
+
+  navigator.geolocation.getCurrentPosition (position) ->
+    console.log "position.coords", position.coords
+    new LocationsController position.coords
+

@@ -2,42 +2,7 @@
   <h1>Sheltr</h1>
 </div>
 
-<div ng-controller="LocationsController">
-  <leaflet markers="markers" center="center" width="90%" height="220px"></leaflet>
+<div id="map"></div>
 
-  <div class="locations" ng-repeat="location in locations">
-    <div class="panel service row">
-      <div class="header row">
-        <div class="name large-9 columns">
-          <div ng-show="{{ location.url.length > 0 }}">
-            <a href="{{ location.url }}"><h3> {{location.name}} </h3></a>
-          </div>
-
-          <div ng-show="{{ !location.url }}">
-            <h3> {{location.name}} </h3>
-          </div>
-
-          <div ng-show="{{ location.address1 }}">
-            <span>{{location.address1}} {{location.address2}}</span>
-            <div>{{location.city}}, {{location.state}}</div>
-          </div>
-
-          <div class="phone" ng-show="{{ location.phone}}">
-            <h5> {{location.phone}} </h5>
-          </div>
-        </div>
-      </div>
-
-      <div class="details row">
-        <div class="large-11 columns">
-          {{ location.description }}
-
-          <div class="hours" ng-show="{{ !!location.hours }}">
-            <strong>Hours</strong>: {{ location.hours }}
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+<div id="locations">
 </div>

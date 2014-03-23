@@ -115,7 +115,7 @@ namespace "locations" do
       p '-' * 88
       if result.first
         location.latitude = result.first.geometry["location"]["lat"]
-        location.latitude = result.first.geometry["location"]["lng"]
+        location.longitude = result.first.geometry["location"]["lng"]
         location.save!
       else
         p "*" * 33

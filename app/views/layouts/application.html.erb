@@ -6,12 +6,16 @@
 
     <title>Sheltr - Find Human Services </title>
 
-    <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css">
-    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag "application" %>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+
   </head>
-  <body ng-app="Sheltr">
-    <%= javascript_include_tag "application" %>
+
+  <body>
     <%= yield %>
   </body>
+
+  <%= javascript_include_tag "application" %>
 </html>

@@ -3,7 +3,9 @@ class LocationsController < ApplicationController
 
   def index
     locations = Location.near([params[:latitude], params[:longitude]], 30)
-    render json: Location.all
+      .limit(40)
+
+    render json: locations.to_json
   end
 
   def show
@@ -11,9 +13,6 @@ class LocationsController < ApplicationController
 
   def new
     @location = Location.new
-  end
-
-  def edit
   end
 
   def create
