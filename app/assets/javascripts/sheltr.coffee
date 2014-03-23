@@ -9,7 +9,7 @@ app.controller "LocationsController", ['$scope', 'Locations', (($scope, Location
     markers = _.map locations, (location) ->
         lat: location.latitude
         lng: location.longitude
-        message: location.name
+        message: "#{location.name}<br/> (#{location.phone})<br/>#{location.address1}"
 
     angular.extend $scope,
       center:

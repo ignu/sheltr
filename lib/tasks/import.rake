@@ -1,4 +1,4 @@
-namespace "import" do
+namespace "locations" do
   class Importer
     def import
       file = File.open filename
@@ -6,7 +6,7 @@ namespace "import" do
       CSV.foreach(file.path, headers: true) do |row|
         hash = construct_hash(row)
         clean_hash(hash)
-        Location.create! hash
+        Location.create! hash if hash["address1"]
       end
     end
 
@@ -92,7 +92,7 @@ namespace "import" do
     end
   end
 
-  task locations: :environment do
+  task import: :environment do
     require 'csv'
 
     Location.delete_all
@@ -104,5 +104,24 @@ namespace "import" do
 
     p "IMPORT COMPLETE.... #{Location.count} locations."
     p '-' * 88
+  end
+
+  task geocode: :environment do
+    locations = Location.where(latitude: nil)
+    locations.each do |location|
+      p "Setting Location for #{location.full_address}......."
+      result = Geocoder.search location.full_address
+      p "(#{result})"
+      p '-' * 88
+      if result.first
+        location.latitude = result.first.geometry["location"]["lat"]
+        location.latitude = result.first.geometry["location"]["lng"]
+        location.save!
+      else
+        p "*" * 33
+        p "NO RESULT FOUND for #{location.full_address}"
+        p "*" * 33
+      end
+    end
   end
 end
